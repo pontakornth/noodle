@@ -23,9 +23,14 @@ describe('checkSolution', () => {
   })
 
   it('check position mode correctly', () => {
-    const allResult = checkSolution('1234', '9240', 'Position')
-    expect(allResult[0].state).toEqual(PositionState.Wrong)
-    expect(allResult[1].state).toEqual(PositionState.Correct)
-    expect(allResult[3].state).toEqual(PositionState.DifferentPosition)
+    const noDuplicateResult = checkSolution('1234', '9240', 'Position')
+    expect(noDuplicateResult[0].state).toEqual(PositionState.Wrong)
+    expect(noDuplicateResult[1].state).toEqual(PositionState.Correct)
+    expect(noDuplicateResult[3].state).toEqual(PositionState.DifferentPosition)
+
+    // Only check the duplicate number in this test below.
+    const duplicateResult = checkSolution('1022', '2021', 'Position')
+    expect(duplicateResult[2].state).toEqual(PositionState.Correct)
+    expect(duplicateResult[3].state).toEqual(PositionState.DifferentPosition)
   })
 })
