@@ -36,9 +36,9 @@ export function checkSolution(guess: string, solution: string, mode: Mode): Numb
 
   // After this point, the guess is valid.
   // So, we can perform testing now.
+  const guessNumList = guess.split('').map(x => Number.parseInt(x))
+  const solutionNumList = solution.split('').map(x => Number.parseInt(x))
   if (mode === 'Value') {
-    const guessNumList = guess.split('').map(x => Number.parseInt(x))
-    const solutionNumList = solution.split('').map(x => Number.parseInt(x))
     return guessNumList.map((num, index) => {
       let state
       if (num < solutionNumList[index])
@@ -53,8 +53,28 @@ export function checkSolution(guess: string, solution: string, mode: Mode): Numb
       return { state, num: num.toString() }
     })
   }
+  else {
+    // Since there is no other mode yet, I can use else branch.
+    // Code is inspired by https://github.com/yyx990803/vue-wordle/blob/main/src/Game.vue
+    const currentRow = guessNumList.map((num) => { return { num, state: PositionState.Wrong } })
+    // Mark correct answer
 
-  // TODO: Implement position mode
+    currentRow.forEach((num, index) => {
+      currentRow[index].state = PositionState.Wrong
+    })
+    solutionNumList.forEach((num, index) => {
+      if (num === currentRow[index].num)
+        currentRow[index].state = PositionState.Correct
+    })
 
-  return []
+    // Mark present
+    currentRow.forEach((result, index) => {
+      if ((currentRow[index].state === PositionState.Wrong) && (solutionNumList.includes(result.num))) {
+        // The solution contains the number. But it is not sure if there is alraedy a correct answer or not.
+        currentRow[index].state = PositionState.DifferentPosition
+      }
+    })
+
+    return currentRow.map(result => ({ num: result.num.toString(), state: result.state }))
+  }
 }
