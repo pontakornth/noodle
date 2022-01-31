@@ -1,50 +1,25 @@
 <script setup lang="ts">
-const name = ref('')
-
-const router = useRouter()
-const go = () => {
-  if (name.value)
-    router.push(`/hi/${encodeURIComponent(name.value)}`)
-}
 </script>
 
 <template>
   <div>
-    <div i-carbon-campsite text-4xl inline-block />
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse-lite" target="_blank">
-        Vitesse Lite
-      </a>
-    </p>
-    <p>
-      <em text-sm op75>Opinionated Vite Starter Template</em>
+    <h1 class="text-6xl font-bold underline mb-4 text-green-800 dark:text-green-100">
+      Noodle <div class="inline-block border border-green-50" i-carbon:noodle-bowl />
+    </h1>
+    <p class="text-sm text-green-600 font-light dark:text-green-200">
+      Wordle but only numbers and chaos (also cheating.)
     </p>
 
-    <div py-4 />
+    <div class="w-full p-8 md:w-2/3 lg:w-1/2 xl:w-1/3 2xl:w-1/4 my-4 mx-auto grid grid-cols-4 grid-rows-4 gap-4">
+      <div class="border-green-400 flex rounded border aspect-square justify-center items-center font-bold text-lg" />
+      <div class="border-green-400 flex rounded border aspect-square justify-center items-center font-bold text-lg" />
+      <div class="border-green-400 flex rounded border aspect-square justify-center items-center font-bold text-lg" />
+      <div class="border-green-400 flex rounded border aspect-square justify-center items-center font-bold text-lg" />
+    </div>
 
-    <input
-      id="input"
-      v-model="name"
-      placeholder="What's your name?"
-      type="text"
-      autocomplete="false"
-      p="x-4 y-2"
-      w="250px"
-      text="center"
-      bg="transparent"
-      border="~ rounded gray-200 dark:gray-700"
-      outline="none active:none"
-      @keydown.enter="go"
-    >
-
-    <div>
-      <button
-        class="m-3 text-sm btn"
-        :disabled="!name"
-        @click="go"
-      >
-        Go
-      </button>
+    <div class="flex flex-col items-center">
+      <label for="guess" class="text-green-600 dark:text-green-50 mb-4">Input your guess here</label>
+      <input id="guess" class="text-black dark:(text-green-50 bg-transparent) px-3 py-2 border border-green-500" type="number" name="guess">
     </div>
   </div>
 </template>
