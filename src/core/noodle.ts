@@ -78,3 +78,11 @@ export function checkSolution(guess: string, solution: string, mode: Mode): Numb
     return currentRow.map(result => ({ num: result.num.toString(), state: result.state }))
   }
 }
+
+/**
+ * Generate the solution
+ * The soluton only contains alphanumeric number with length of 4.
+ */
+export function generateSolution(): string {
+  return (Math.random() * 10_000).toString().padStart(4, '0')
+}
