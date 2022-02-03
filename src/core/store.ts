@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import type { Mode, NumberResult } from './noodle'
+import { checkSolution, generateSolution } from './noodle'
 
 /**
  * This is store for the main game.
@@ -21,5 +22,14 @@ export const useStore = defineStore('main', {
       solution: 'TODO',
       guessed: [] as NumberResult[][],
     }
+  },
+  actions: {
+    attempt(guess: string) {
+      const newGuess = checkSolution(guess, this.solution, this.mode)
+      this.guessed.push(newGuess)
+    },
+    generateSolution() {
+      this.solution = generateSolution()
+    },
   },
 })
